@@ -1,0 +1,35 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>测试Promise</title>
+  </head>
+  <body>
+    <script src="./Mypromise.js"></script>
+    <script>
+      console.log('---------------手写Promise---------------')
+      let p = MyPromise.resolve(1234)
+      p.then(value => console.log(value))
+
+      MyPromise.reject(5555).catch(reason => console.log(reason))
+
+      let pp = new MyPromise((resolve, reject) => {
+        setTimeout(() => {
+          resolve(999)
+        }, 2000)
+      })
+
+      console.log('pp', pp)
+
+      pp.then(value => {
+        console.log(value)
+        return value === 999 ? MyPromise.reject(123456) : 1111
+      }).then(
+        value => console.log(value),
+        reason => console.log(reason)
+      )
+    </script>
+  </body>
+</html>
